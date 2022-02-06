@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import {
-  MAIN_STORY,
-  OPINION_STORIES,
-  SECONDARY_STORIES,
-} from '../../data';
+import { MAIN_STORY, OPINION_STORIES, SECONDARY_STORIES } from '../../data';
 
 import SectionTitle from '../SectionTitle';
 import MainStory from '../MainStory';
@@ -22,18 +18,30 @@ const MainStoryGrid = () => {
 
       <SecondaryStorySection>
         <StoryList>
-          {SECONDARY_STORIES.map((story, index) => (
-            <SecondaryStory key={story.id} {...story} />
-          ))}
+          {SECONDARY_STORIES.map((story, index) => {
+            const isLastStory = index === SECONDARY_STORIES.length;
+            return (
+              <>
+                <SecondaryStory key={story.id} {...story} />
+                {!isLastStory && <StorySeparator />}
+              </>
+            );
+          })}
         </StoryList>
       </SecondaryStorySection>
 
       <OpinionSection>
         <SectionTitle>Opinion</SectionTitle>
         <StoryList>
-          {OPINION_STORIES.map((story, index) => (
-            <OpinionStory key={story.id} {...story} />
-          ))}
+          {OPINION_STORIES.map((story, index) => {
+            const isLastStory = index === OPINION_STORIES.length;
+            return (
+              <>
+                <OpinionStory key={story.id} {...story} />
+                {!isLastStory && <StorySeparator />}
+              </>
+            );
+          })}
         </StoryList>
       </OpinionSection>
 
@@ -66,6 +74,12 @@ const SecondaryStorySection = styled.section`
 const StoryList = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const StorySeparator = styled.div`
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--color-gray-300);
 `;
 
 const OpinionSection = styled.section`
